@@ -22,7 +22,7 @@
                         }
                     }
                 ?>
-                <?php echo link_to(__($name), $item['route']) ?>
+                <?php echo link_to(__($name), $item['route'], $item['link_attributes']->getRawValue()) ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>
