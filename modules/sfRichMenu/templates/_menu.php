@@ -15,14 +15,14 @@
         <?php if ($item): ?>
             <?php echo tag('li', $item['attributes']->getRawValue(), true) ?>
                 <?php
-                    $name = $item['name'];
+                    $name = __($item['name']);
                     if (preg_match_all('/\%%([\w\/]+)\%%/', $item['name'], $matches)) {
                         foreach ($matches[1] as $match) {
                             $name = str_replace('%%'.$match.'%%', get_partial($match), $name);
                         }
                     }
                 ?>
-                <?php echo link_to(__($name), $item['route'], $item['link_attributes']->getRawValue()) ?>
+                <?php echo link_to($name, $item['route'], $item['link_attributes']->getRawValue()) ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>
