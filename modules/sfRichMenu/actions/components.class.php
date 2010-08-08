@@ -89,6 +89,8 @@ class sfRichMenuComponents extends sfComponents
                                 $this->getResponse()->setSlot($slotName, $slotValue);
                             }
                         }
+
+                        break;
                     }
                 }
             }
