@@ -57,7 +57,8 @@ class sfRichMenuComponents extends sfComponents
                                 list($action, $param) = explode('@', $action, 2);
                                 @list($param, $value) = explode('=', $param, 2);
 
-                                $isActive = $isActive || $request->getParameter(trim($param)) == trim($value);
+                                $isActive = $isActive ||
+                                    ($request->getParameter(trim($param)) == trim($value) && $currentAction == $action);
                             } else {
                                 $isActive = $isActive || $currentAction == $action;
                             }
