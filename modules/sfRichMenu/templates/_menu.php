@@ -5,7 +5,10 @@
  * @author  Rustam Miniahmetov <pycmam@gmail.com>
  *
  * @param array items
+ * @param array|Doctrine_Record $params
  */
+
+$params = isset($params) ? $params : array();
 ?>
 
 <?php use_helper('I18N') ?>
@@ -22,7 +25,7 @@
                         }
                     }
                 ?>
-                <?php echo link_to($name, $item['route'], array(), $item['link_attributes']->getRawValue()) ?>
+                <?php echo link_to($name, $item['route'], $params, $item['link_attributes']->getRawValue()) ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>
