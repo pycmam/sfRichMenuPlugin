@@ -8,7 +8,12 @@
  * @param array|Doctrine_Record $params
  */
 
-$params = isset($params) ? $params : array();
+if (!isset($params)) {
+    $params = array();
+}
+if (is_object($params) && $params instanceof sfOutputEscaper) {
+    $params = $params->getRawValue();
+}
 ?>
 
 <?php use_helper('I18N') ?>
