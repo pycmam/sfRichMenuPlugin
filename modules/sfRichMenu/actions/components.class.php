@@ -99,7 +99,7 @@ class sfRichMenuComponents extends sfComponents
             $prevIdx = $idx;
         }
 
-        $this->items = $items;
+        $this->setVar('items', $items, $noEsc = true);
     }
 
 

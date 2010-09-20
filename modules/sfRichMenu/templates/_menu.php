@@ -21,7 +21,7 @@ if (is_object($params) && $params instanceof sfOutputEscaper) {
 <?php if(count($items)): ?>
     <?php foreach($items as $item): ?>
         <?php if ($item): ?>
-            <?php echo tag('li', $item['attributes']->getRawValue(), true) ?>
+            <?php echo tag('li', $item['attributes'], true) ?>
                 <?php
                     $name = __($item['name']);
                     if (preg_match_all('/\%%([\w\/]+)\%%/', $item['name'], $matches)) {
@@ -30,7 +30,7 @@ if (is_object($params) && $params instanceof sfOutputEscaper) {
                         }
                     }
                 ?>
-                <?php echo link_to($name, $item['route'], $params, $item['link_attributes']->getRawValue()) ?>
+                <?php echo link_to($name, $item['route'], $params, $item['link_attributes']) ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>
