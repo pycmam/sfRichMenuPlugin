@@ -29,8 +29,9 @@ if (is_object($params) && $params instanceof sfOutputEscaper) {
                             $name = str_replace('%%'.$match.'%%', get_partial($match), $name);
                         }
                     }
+                    $linkParams = ('@' != $item['route'][0]) ? $params : array();
                 ?>
-                <?php echo link_to($name, $item['route'], $params, $item['link_attributes']) ?>
+                <?php echo link_to($name, $item['route'], $linkParams, $item['link_attributes']) ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>
