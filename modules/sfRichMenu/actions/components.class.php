@@ -21,7 +21,8 @@ class sfRichMenuComponents extends sfComponents
 
         $default = array('attributes' => array(), 'link_attributes' => array());
 
-        $prevIdx = false;
+        $prevIdx  = false;
+        $itemKeys = array_keys($items);
         foreach ($items as $idx => &$item) {
 
             // проверка привилегий
@@ -39,6 +40,14 @@ class sfRichMenuComponents extends sfComponents
             }
 
             $item = array_merge($default, $item);
+
+            // Отметить первый и последний элементы
+            if (false === $prevIdx) {
+                $this->_addClassAttribute($item['attributes'], 'first');
+            }
+            if (end($itemKeys) == $idx) {
+                $this->_addClassAttribute($item['attributes'], 'last');
+            }
 
             $patterns = preg_split('/\s*;\s*/', $item['active_pattern']);
             $isActive = false;
@@ -68,19 +77,11 @@ class sfRichMenuComponents extends sfComponents
                     if ($isActive) {
                         // пометить текущий элеемент меню классом активности
                         $activeClass = isset($this->activeClass) ? $this->activeClass : 'active';
-                        if (isset($item['attributes']['class'])) {
-                            $item['attributes']['class'] .=  ' ' . $activeClass;
-                        } else {
-                            $item['attributes']['class'] =  $activeClass;
-                        }
+                        $this->_addClassAttribute($item['attributes'], $activeClass);
 
                         // пометить предыдущий элемент меню классом 'before-active'
-                        if ($prevIdx) {
-                            if (isset($items[$prevIdx]['attributes']['class'])) {
-                                $items[$prevIdx]['attributes']['class'] .=  ' before-active';
-                            } else {
-                                $items[$prevIdx]['attributes']['class'] =  'before-active';
-                            }
+                        if (false !== $prevIdx) {
+                            $this->_addClassAttribute($items[$prevIdx]['attributes'], 'before-active');
                         }
 
                         // установить слоты
@@ -99,6 +100,24 @@ class sfRichMenuComponents extends sfComponents
         }
 
         $this->items = $items;
+    }
+
+
+    /**
+     * Добавить в указанный массив новый класс в соответствующее поле
+     *
+     * @param  array  $target - Массив с ключом "class"
+     * @param  string $class  - Строка, которую надо добавить
+     * @return void
+     */
+    private function _addClassAttribute(array &$target, $class)
+    {
+        $classes = array();
+        if (isset($target['class'])) {
+            $classes[] = $target['class'];
+        }
+        $classes[] = $class;
+        $target['class'] = implode(' ', $classes);
     }
 
 }
