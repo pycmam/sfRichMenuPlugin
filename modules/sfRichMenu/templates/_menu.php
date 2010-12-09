@@ -26,6 +26,12 @@ $params = isset($params) ? $params : array();
                     }
                 ?>
                 <?php echo link_to($name, $item['route'], $params, $item['link_attributes']->getRawValue()) ?>
+
+                <?php if ($item['submenu']): ?>
+                <ul class="submenu">
+                    <?php include_component('sfRichMenu', 'menu', array('menu' => $item['submenu'])) ?>
+                </ul>
+                <?php endif ?>
             </li>
         <?php endif ?>
     <?php endforeach ?>

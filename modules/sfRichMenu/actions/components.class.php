@@ -19,7 +19,11 @@ class sfRichMenuComponents extends sfComponents
         $currentAction = $entry->getActionName();
         $currentModule = $entry->getModuleName();
 
-        $default = array('attributes' => array(), 'link_attributes' => array());
+        $default = array(
+            'attributes' => array(),
+            'link_attributes' => array(),
+            'submenu' => false,
+        );
 
         $prevIdx = false;
         foreach ($items as $idx => &$item) {
