@@ -12,7 +12,11 @@ class sfRichMenuComponents extends sfComponents
      */
     public function executeMenu(sfWebRequest $request)
     {
-        $items = sfConfig::get('app_sf_rich_menu_'.$this->menu, array());
+        if (! is_array($this->menu)) {
+            $items = sfConfig::get('app_sf_rich_menu_'.$this->menu, array());
+        } else {
+            $items = $this->menu;
+        }
 
         $entry = $this->context->getController()->getActionStack()->getLastEntry();
 
@@ -27,6 +31,9 @@ class sfRichMenuComponents extends sfComponents
 
         $prevIdx = false;
         foreach ($items as $idx => &$item) {
+            if (! isset($item['name'])) {
+                $item['name'] = $idx;
+            }
 
             // проверка привилегий
             if (isset($item['credentials'])) {
