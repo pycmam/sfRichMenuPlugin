@@ -16,30 +16,22 @@ $params = isset($params) ? $params : array();
 <?php if(count($items)): ?>
     <?php foreach($items as $item): ?>
         <?php if ($item): ?>
-            <?php echo tag('li', $item['attributes']->getRawValue(), true) ?>
-                <?php
-                    $name = __($item['name']);
-                    if (preg_match_all('/\%%([\w\/]+)\%%/', $item['name'], $matches)) {
-                        foreach ($matches[1] as $match) {
-                            $name = str_replace('%%'.$match.'%%', get_partial($match), $name);
-                        }
+            <?php
+                $name = __($item['name']);
+                if (preg_match_all('/\%%([\w\/]+)\%%/', $item['name'], $matches)) {
+                    foreach ($matches[1] as $match) {
+                        $name = str_replace('%%'.$match.'%%', get_partial($match), $name);
                     }
-                ?>
-
-                <?php
-                if (substr($item['route'], 0, 4) == 'http') {
-                    echo link_to($name, $item['route'], $item['link_attributes']->getRawValue());
-                } else {
-                    echo link_to($name, $item['route'], $params, $item['link_attributes']->getRawValue());
                 }
-                ?>
+            ?>
 
-                <?php if ($item['submenu']): ?>
-                <ul class="submenu">
-                    <?php include_component('sfRichMenu', 'menu', array('menu' => $item['submenu'])) ?>
-                </ul>
-                <?php endif ?>
-            </li>
+            <?php
+            if (substr($item['route'], 0, 4) == 'http') {
+                echo link_to($name, $item['route'], $item['attributes']->getRawValue());
+            } else {
+                echo link_to($name, $item['route'], $params, $item['attributes']->getRawValue());
+            }
+            ?>
         <?php endif ?>
     <?php endforeach ?>
 <?php endif ?>
