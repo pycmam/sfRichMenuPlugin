@@ -8,6 +8,23 @@
 class sfRichMenuComponents extends sfComponents
 {
     /**
+     * Старая верстка меню для админки
+     */
+    public function executeAdmin(sfWebRequest $request)
+    {
+        $this->executeMenu($request);
+    }
+
+
+    /**
+     * То же меню, только с шаблоном табов
+     */
+    public function executeTabs(sfWebRequest $request)
+    {
+        $this->executeMenu($request);
+    }
+
+    /**
      * Генератор меню
      */
     public function executeMenu(sfWebRequest $request)
