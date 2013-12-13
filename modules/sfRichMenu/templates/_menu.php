@@ -30,7 +30,7 @@ $params = isset($params) ? $params : array();
                 if (substr($item['route'], 0, 4) == 'http') {
                     echo link_to($name, $item['route'], $item['link_attributes']->getRawValue());
                 } else {
-                    echo link_to($name, $item['route'], $params, $item['link_attributes']->getRawValue());
+                    echo link_to($name, str_replace('&amp;', '&', $item['route']), $params, $item['link_attributes']->getRawValue());
                 }
                 ?>
 
